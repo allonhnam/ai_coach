@@ -3,19 +3,22 @@ import Link from "next/link";
 
 const Cta = () => {
     return (
-        <section className="cta-section">
+        <section className="cta-section-new">
             <div className="cta-badge">Start learning your way.</div>
-            <h2 className="text-3xl font-bold">
-                Build and Personalize Learning Companion
-            </h2>
-            <p>Pick a name, subject, voice, & personality — and start learning through voice conversations that feel natural and fun.</p>
-            <Image src="images/cta.svg" alt="cta" width={362} height={232} />
-            <button className="btn-primary">
-                <Image src="/icons/plus.svg" alt="plus" width={12} height={12}/>
-                <Link href="/companions/new">
-                    <p>Build a New Companion</p>
-                </Link>
-            </button>
+            
+            <div className="cta-content">
+                <h2 className="cta-title">
+                    Build and Personalize Your Learning Companion
+                </h2>
+                <p className="cta-description">
+                    Choose a name, subject, voice, and personality — then start learning through natural voice conversations that make studying engaging and effective.
+                </p>
+            </div>
+
+            <Link href="/companions/new" className="cta-button">
+                <Image src="/icons/plus.svg" alt="plus" width={16} height={16}/>
+                <span>Build a New Companion</span>
+            </Link>
         </section>
     )
 }

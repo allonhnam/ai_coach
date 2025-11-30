@@ -62,16 +62,16 @@ const CompanionForm = () => {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
                     control={form.control}
                     name="name"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Companion name</FormLabel>
+                            <FormLabel>Companion Name</FormLabel>
                             <FormControl>
                                 <Input
-                                    placeholder="Enter the companion name"
+                                    placeholder="e.g., Aura, The Synapse Guide"
                                     {...field}
                                     className="input"
                                 />
@@ -117,10 +117,10 @@ const CompanionForm = () => {
                     name="topic"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>What should the companion help with?</FormLabel>
+                            <FormLabel>Learning Topic</FormLabel>
                             <FormControl>
                                 <Textarea
-                                    placeholder="Ex. Derivates & Integrals"
+                                    placeholder="e.g., Neural Networks & Cognition, Derivatives & Integrals"
                                     {...field}
                                     className="input"
                                 />
@@ -198,7 +198,7 @@ const CompanionForm = () => {
                     name="duration"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Estimated session duration in minutes</FormLabel>
+                            <FormLabel>Session Duration (minutes)</FormLabel>
                             <FormControl>
                                 <Input
                                     type="number"
@@ -213,7 +213,7 @@ const CompanionForm = () => {
                         </FormItem>
                     )}
                 />
-                <Button type="submit" className="w-full cursor-pointer">Build Your Companion</Button>
+                <Button type="submit" className="w-full cursor-pointer bg-primary hover:bg-primary/90 text-primary-foreground py-6 text-base font-semibold">Create Your Companion</Button>
             </form>
         </Form>
     )

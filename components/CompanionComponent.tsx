@@ -164,12 +164,12 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                         disabled={callStatus === CallStatus.CONNECTING}
                     >
                         {callStatus === CallStatus.ACTIVE
-                            ? "End Session"
+                            ? "End Learning Session"
                             : callStatus === CallStatus.CONNECTING
                                 ? 'Connecting...'
                                 : callStatus === CallStatus.FINISHED
-                                    ? 'Session Ended'
-                                    : 'Start Session'
+                                    ? 'Session Complete'
+                                    : 'Start Learning Session'
                         }
                     </button>
                 </div>

@@ -10,8 +10,8 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "Converso",
-  description: "Real-time AI Teaching Platform",
+  title: "AI Coach",
+  description: "AI Coach for your learning journey",
 };
 
 export default function RootLayout({
@@ -20,9 +20,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body className={`${bricolage.variable} antialiased`}>
-        <ClerkProvider appearance={{ variables: { colorPrimary: '#fe5933' }} }>
+        <ClerkProvider appearance={{ variables: { colorPrimary: '#FF4AB8' } }} >
           <Navbar />
           {children}
         </ClerkProvider>

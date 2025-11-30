@@ -24,7 +24,7 @@ const Profile = async () => {
   const bookmarkedCompanions = await getBookmarkedCompanions(user.id);
 
   return (
-    <main className="min-lg:w-3/4">
+    <main className="lg:w-3/4">
       <section className="flex justify-between gap-4 max-sm:flex-col items-center">
         <div className="flex gap-4 items-center">
           <Image
@@ -43,7 +43,7 @@ const Profile = async () => {
           </div>
         </div>
         <div className="flex gap-4">
-          <div className="border border-black rouded-lg p-3 gap-2 flex flex-col h-fit">
+          <div className="border border-border rounded-lg p-4 gap-2 flex flex-col h-fit bg-card">
             <div className="flex gap-2 items-center">
               <Image
                 src="/icons/check.svg"
@@ -51,16 +51,16 @@ const Profile = async () => {
                 width={22}
                 height={22}
               />
-              <p className="text-2xl font-bold">{sessionHistory.length}</p>
+              <p className="text-2xl font-bold text-foreground">{sessionHistory.length}</p>
             </div>
-            <div>Lessons completed</div>
+            <div className="text-sm text-muted-foreground">Sessions Completed</div>
           </div>
-          <div className="border border-black rouded-lg p-3 gap-2 flex flex-col h-fit">
+          <div className="border border-border rounded-lg p-4 gap-2 flex flex-col h-fit bg-card">
             <div className="flex gap-2 items-center">
               <Image src="/icons/cap.svg" alt="cap" width={22} height={22} />
-              <p className="text-2xl font-bold">{companions.length}</p>
+              <p className="text-2xl font-bold text-foreground">{companions.length}</p>
             </div>
-            <div>Companions created</div>
+            <div className="text-sm text-muted-foreground">Companions Created</div>
           </div>
         </div>
       </section>

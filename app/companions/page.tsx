@@ -13,8 +13,11 @@ const CompanionsLibrary = async ({ searchParams }: SearchParams) => {
 
     return (
         <main>
+            <section className="flex flex-col gap-2 mb-4">
+                <h1>AI Coach Library</h1>
+                <p className="subtitle">Explore the full registry of available AI learning companions.</p>
+            </section>
             <section className="flex justify-between gap-4 max-sm:flex-col">
-                <h1>Companion Library</h1>
                 <div className="flex gap-4">
                     <SearchInput />
                     <SubjectFilter />

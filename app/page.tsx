@@ -11,7 +11,10 @@ const Page = async () => {
 
   return (
     <main>
-      <h1>Popular Companions</h1>
+      <div className="mb-6">
+        <h1>Featured Learning Companions</h1>
+        <p className="subtitle mt-2">Discover our most popular AI tutors ready to help you learn</p>
+      </div>
 
         <section className="home-section">
             {companions.map((companion) => (
@@ -26,7 +29,7 @@ const Page = async () => {
 
         <section className="home-section">
             <CompanionsList
-                title="Recently completed sessions"
+                title="Your Recent Sessions"
                 companions={recentSessionsCompanions}
                 classNames="w-2/3 max-lg:w-full"
             />

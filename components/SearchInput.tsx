@@ -1,7 +1,7 @@
 'use client';
 
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useCallback, useMemo} from "react";
 import Image from "next/image";
 import {formUrlQuery, removeKeysFromUrlQuery} from "@jsmastery/utils";
 
@@ -11,7 +11,11 @@ const SearchInput = () => {
     const searchParams = useSearchParams();
     const query = searchParams.get('topic') || '';
 
-    const [searchQuery, setSearchQuery] = useState('');
+    const [searchQuery, setSearchQuery] = useState(query);
+
+    useEffect(() => {
+        setSearchQuery(query);
+    }, [query]);
 
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
@@ -34,16 +38,22 @@ const SearchInput = () => {
                 }
             }
         }, 500)
+        
+        return () => clearTimeout(delayDebounceFn);
     }, [searchQuery, router, searchParams, pathname]);
 
+    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(e.target.value);
+    }, []);
+
     return (
-        <div className="relative border border-black rounded-lg items-center flex gap-2 px-2 py-1 h-fit">
+        <div className="relative border border-border rounded-lg items-center flex gap-2 px-2 py-1 h-fit bg-input">
             <Image src="/icons/search.svg" alt="search" width={15} height={15} />
             <input
-                placeholder="Search companions..."
-                className="outline-none"
+                placeholder="Search your sentinels or topics..."
+                className="outline-none bg-transparent text-foreground placeholder:text-muted-foreground"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={handleChange}
             />
         </div>
     )
