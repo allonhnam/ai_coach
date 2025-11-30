@@ -47,11 +47,15 @@ export const getCompanion = async (id: string) => {
     const { data, error } = await supabase
         .from('companions')
         .select()
-        .eq('id', id);
+        .eq('id', id)
+        .single();
 
-    if(error) return console.log(error);
+    if(error) {
+        console.error('Error fetching companion:', error);
+        return null;
+    }
 
-    return data[0];
+    return data;
 }
 
 export const addToSessionHistory = async (companionId: string) => {
@@ -107,6 +111,35 @@ export const getUserCompanions = async (userId: string) => {
     return data;
 }
 
+export const newCompanionPermissions = async () => {
+    const { userId, has } = await auth();
+    const supabase = createSupabaseClient();
+
+    let limit = 0;
+
+    if(has({ plan: 'pro' })) {
+        return true;
+    } else if(has({ feature: "3_companion_limit" })) {
+        limit = 3;
+    } else if(has({ feature: "10_companion_limit" })) {
+        limit = 10;
+    }
+
+    const { data, error } = await supabase
+        .from('companions')
+        .select('id', { count: 'exact' })
+        .eq('author', userId)
+
+    if(error) throw new Error(error.message);
+
+    const companionCount = data?.length;
+
+    if(companionCount >= limit) {
+        return false
+    } else {
+        return true;
+    }
+}
 
 // Bookmarks
 export const addBookmark = async (companionId: string, path: string) => {
@@ -118,10 +151,14 @@ export const addBookmark = async (companionId: string, path: string) => {
     user_id: userId,
   });
   if (error) {
+    console.error('Error adding bookmark:', error);
+    // Return null instead of throwing if table doesn't exist
+    if (error.message?.includes('schema cache') || error.message?.includes('does not exist')) {
+      return null;
+    }
     throw new Error(error.message);
   }
   // Revalidate the path to force a re-render of the page
-
   revalidatePath(path);
   return data;
 };
@@ -136,6 +173,11 @@ export const removeBookmark = async (companionId: string, path: string) => {
     .eq("companion_id", companionId)
     .eq("user_id", userId);
   if (error) {
+    console.error('Error removing bookmark:', error);
+    // Return null instead of throwing if table doesn't exist
+    if (error.message?.includes('schema cache') || error.message?.includes('does not exist')) {
+      return null;
+    }
     throw new Error(error.message);
   }
   revalidatePath(path);
@@ -150,8 +192,13 @@ export const getBookmarkedCompanions = async (userId: string) => {
     .select(`companions:companion_id (*)`) // Notice the (*) to get all the companion data
     .eq("user_id", userId);
   if (error) {
+    console.error('Error fetching bookmarked companions:', error);
+    // Return empty array instead of throwing if table doesn't exist
+    if (error.message?.includes('schema cache') || error.message?.includes('does not exist')) {
+      return [];
+    }
     throw new Error(error.message);
   }
   // We don't need the bookmarks data, so we return only the companions
-  return data.map(({ companions }) => companions);
+  return data ? data.map(({ companions }) => companions).filter(Boolean) : [];
 };

@@ -34,10 +34,15 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
     }, [isSpeaking, lottieRef])
 
     useEffect(() => {
-        const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
+        const onCallStart = () => {
+            setCallStatus(CallStatus.ACTIVE);
+            // Sync mute state when call starts
+            setIsMuted(vapi.isMuted() || false);
+        };
 
         const onCallEnd = () => {
             setCallStatus(CallStatus.FINISHED);
+            setIsMuted(false);
             addToSessionHistory(companionId)
         }
 
@@ -51,7 +56,10 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
         const onSpeechStart = () => setIsSpeaking(true);
         const onSpeechEnd = () => setIsSpeaking(false);
 
-        const onError = (error: Error) => console.log('Error', error);
+        const onError = (error: Error) => {
+            console.error('VAPI Error:', error);
+            setCallStatus(CallStatus.INACTIVE);
+        };
 
         vapi.on('call-start', onCallStart);
         vapi.on('call-end', onCallEnd);
@@ -68,12 +76,17 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
             vapi.off('speech-start', onSpeechStart);
             vapi.off('speech-end', onSpeechEnd);
         }
-    }, []);
+    }, [companionId]);
 
     const toggleMicrophone = () => {
-        const isMuted = vapi.isMuted();
-        vapi.setMuted(!isMuted);
-        setIsMuted(!isMuted)
+        try {
+            const currentMutedState = vapi.isMuted();
+            const newMutedState = !currentMutedState;
+            vapi.setMuted(newMutedState);
+            setIsMuted(newMutedState);
+        } catch (error) {
+            console.error('Error toggling microphone:', error);
+        }
     }
 
     const handleCall = async () => {
@@ -85,13 +98,20 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
             serverMessages: [],
         }
 
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
         vapi.start(configureAssistant(voice, style), assistantOverrides)
     }
 
     const handleDisconnect = () => {
-        setCallStatus(CallStatus.FINISHED)
-        vapi.stop()
+        try {
+            setCallStatus(CallStatus.FINISHED);
+            setIsMuted(false);
+            vapi.stop();
+        } catch (error) {
+            console.error('Error disconnecting call:', error);
+            setCallStatus(CallStatus.INACTIVE);
+        }
     }
 
     return (
@@ -133,12 +153,23 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                             {isMuted ? 'Turn on microphone' : 'Turn off microphone'}
                         </p>
                     </button>
-                    <button className={cn('rounded-lg py-2 cursor-pointer transition-colors w-full text-white', callStatus ===CallStatus.ACTIVE ? 'bg-red-700' : 'bg-primary', callStatus === CallStatus.CONNECTING && 'animate-pulse')} onClick={callStatus === CallStatus.ACTIVE ? handleDisconnect : handleCall}>
+                    <button 
+                        className={cn(
+                            'rounded-lg py-2 cursor-pointer transition-colors w-full text-white font-medium',
+                            callStatus === CallStatus.ACTIVE ? 'bg-red-700 hover:bg-red-800' : 'bg-primary hover:bg-primary/90',
+                            callStatus === CallStatus.CONNECTING && 'animate-pulse',
+                            callStatus === CallStatus.FINISHED && 'bg-gray-500'
+                        )} 
+                        onClick={callStatus === CallStatus.ACTIVE ? handleDisconnect : handleCall}
+                        disabled={callStatus === CallStatus.CONNECTING}
+                    >
                         {callStatus === CallStatus.ACTIVE
-                        ? "End Session"
-                        : callStatus === CallStatus.CONNECTING
-                            ? 'Connecting'
-                        : 'Start Session'
+                            ? "End Session"
+                            : callStatus === CallStatus.CONNECTING
+                                ? 'Connecting...'
+                                : callStatus === CallStatus.FINISHED
+                                    ? 'Session Ended'
+                                    : 'Start Session'
                         }
                     </button>
                 </div>
