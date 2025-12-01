@@ -55,7 +55,7 @@ const CompanionForm = () => {
         if(companion) {
             redirect(`/companions/${companion.id}`);
         } else {
-            console.log('Failed to create a companion');
+            console.log('Failed to create a coach');
             redirect('/');
         }
     }
@@ -68,7 +68,7 @@ const CompanionForm = () => {
                     name="name"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Companion Name</FormLabel>
+                            <FormLabel>Coach Name</FormLabel>
                             <FormControl>
                                 <Input
                                     placeholder="e.g., Aura, The Synapse Guide"
@@ -213,7 +213,7 @@ const CompanionForm = () => {
                         </FormItem>
                     )}
                 />
-                <Button type="submit" className="w-full cursor-pointer bg-primary hover:bg-primary/90 text-primary-foreground py-6 text-base font-semibold">Create Your Companion</Button>
+                <Button type="submit" className="w-full cursor-pointer bg-primary hover:bg-primary/90 text-primary-foreground py-6 text-base font-semibold">Create Your Coach</Button>
             </form>
         </Form>
     )

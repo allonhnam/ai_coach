@@ -12,8 +12,8 @@ const Page = async () => {
   return (
     <main>
       <div className="mb-6">
-        <h1>Featured Learning Companions</h1>
-        <p className="subtitle mt-2">Discover our most popular AI tutors ready to help you learn</p>
+        <h1>Coaches on Call</h1>
+        <p className="subtitle mt-2">Discover our most popular AI coaches ready to help you learn</p>
       </div>
 
         <section className="home-section">
