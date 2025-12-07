@@ -5,6 +5,8 @@ import {getSubjectColor} from "@/lib/utils";
 import Image from "next/image";
 import CompanionComponent from "@/components/CompanionComponent";
 
+export const dynamic = 'force-dynamic';
+
 interface CompanionSessionPageProps {
     params: Promise<{ id: string}>;
 }

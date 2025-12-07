@@ -6,7 +6,13 @@ export const createSupabaseClient = () => {
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
             async accessToken() {
-                return ((await auth()).getToken());
+                try {
+                    const authResult = await auth();
+                    return authResult?.getToken() || null;
+                } catch (error) {
+                    // Return null if auth is not available (e.g., during static generation)
+                    return null;
+                }
             }
         }
     )
