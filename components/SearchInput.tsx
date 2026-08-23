@@ -72,11 +72,11 @@ const SearchInput = () => {
     }, []);
 
     return (
-        <div className="relative border border-border rounded-lg items-center flex gap-2 px-2 py-1 h-fit bg-input">
-            <Image src="/icons/search.svg" alt="search" width={15} height={15} />
+        <div className="relative border border-border rounded-full items-center flex gap-2 px-4 py-2 h-fit bg-muted focus-within:border-primary focus-within:bg-card transition-colors w-full sm:w-80">
+            <Image src="/icons/search.svg" alt="search" width={15} height={15} className="opacity-60" />
             <input
                 placeholder="Search your sentinels or topics..."
-                className="outline-none bg-transparent text-foreground placeholder:text-muted-foreground"
+                className="outline-none bg-transparent text-foreground placeholder:text-muted-foreground text-sm w-full"
                 value={searchQuery}
                 onChange={handleChange}
             />

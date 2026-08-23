@@ -10,9 +10,9 @@ const Navbar = () => {
                 <div className="flex items-center gap-2.5 cursor-pointer">
                     <Image
                         src="/images/logo.svg"
-                        alt="logo"
-                        width={80}
-                        height={76}
+                        alt="AI Coach logo"
+                        width={150}
+                        height={38}
                     />
                 </div>
             </Link>

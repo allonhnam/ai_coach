@@ -32,11 +32,12 @@ const Profile = async () => {
           <Image
             src={user.imageUrl}
             alt={user.firstName!}
-            width={110}
-            height={110}
+            width={96}
+            height={96}
+            className="rounded-full border border-border shadow-sm"
           />
           <div className="flex flex-col gap-2">
-            <h1 className="font-bold text-2xl">
+            <h1>
               {user.firstName} {user.lastName}
             </h1>
             <p className="text-sm text-muted-foreground">
@@ -45,22 +46,22 @@ const Profile = async () => {
           </div>
         </div>
         <div className="flex gap-4">
-          <div className="border border-border rounded-lg p-4 gap-2 flex flex-col h-fit bg-card">
+          <div className="border border-border rounded-xl p-4 gap-2 flex flex-col h-fit bg-card shadow-sm">
             <div className="flex gap-2 items-center">
               <Image
                 src="/icons/check.svg"
                 alt="checkmark"
-                width={22}
-                height={22}
+                width={20}
+                height={20}
               />
-              <p className="text-2xl font-bold text-foreground">{sessionHistory.length}</p>
+              <p className="text-xl font-semibold text-foreground">{sessionHistory.length}</p>
             </div>
             <div className="text-sm text-muted-foreground">Sessions Completed</div>
           </div>
-          <div className="border border-border rounded-lg p-4 gap-2 flex flex-col h-fit bg-card">
+          <div className="border border-border rounded-xl p-4 gap-2 flex flex-col h-fit bg-card shadow-sm">
             <div className="flex gap-2 items-center">
-              <Image src="/icons/cap.svg" alt="cap" width={22} height={22} />
-              <p className="text-2xl font-bold text-foreground">{companions.length}</p>
+              <Image src="/icons/cap.svg" alt="cap" width={20} height={20} />
+              <p className="text-xl font-semibold text-foreground">{companions.length}</p>
             </div>
             <div className="text-sm text-muted-foreground">Coaches Created</div>
           </div>
@@ -68,7 +69,7 @@ const Profile = async () => {
       </section>
       <Accordion type="multiple">
         <AccordionItem value="bookmarks">
-          <AccordionTrigger className="text-2xl font-bold">
+          <AccordionTrigger className="text-lg font-semibold">
             Bookmarked Coaches {`(${bookmarkedCompanions.length})`}
           </AccordionTrigger>
           <AccordionContent>
@@ -79,7 +80,7 @@ const Profile = async () => {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="recent">
-          <AccordionTrigger className="text-2xl font-bold">
+          <AccordionTrigger className="text-lg font-semibold">
             Recent Sessions
           </AccordionTrigger>
           <AccordionContent>
@@ -90,7 +91,7 @@ const Profile = async () => {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="companions">
-          <AccordionTrigger className="text-2xl font-bold">
+          <AccordionTrigger className="text-lg font-semibold">
             My Companions {`(${companions.length})`}
           </AccordionTrigger>
           <AccordionContent>

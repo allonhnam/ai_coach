@@ -14,28 +14,29 @@ interface CompanioCardProps {
 const CompanionCard = memo(({ id, name, topic, subject, duration, color }:
     CompanioCardProps) => {
     return (
-        <article className="companion-card" style={{ borderColor: color }}>
+        <article className="companion-card">
+            <div className="h-1 w-10 rounded-full mb-1" style={{ backgroundColor: color }} />
             <div className="flex justify-between items-center">
                 <div className="subject-badge" style={{ backgroundColor: color, color: '#050818' }}>{subject}</div>
-                <div className="size-8 flex items-center justify-center" style={{ color: color }}>
-                    <Image src={`/icons/${subject}.svg`} alt={subject} width={24} height={24} />
+                <div className="size-8 flex items-center justify-center rounded-full" style={{ backgroundColor: color + '33' }}>
+                    <Image src={`/icons/${subject}.svg`} alt={subject} width={18} height={18} />
                 </div>
             </div>
 
-            <h2 className="text-2xl font-bold text-foreground">{name}</h2>
-            <p className="text-sm text-foreground">{topic}</p>
+            <h2 className="text-xl font-semibold text-foreground">{name}</h2>
+            <p className="text-sm text-muted-foreground">{topic}</p>
             <div  className="flex items-center gap-2">
-                <Image 
-                    src="/icons/clock.svg" 
+                <Image
+                    src="/icons/clock.svg"
                     alt="duration"
                     width={13.5}
                     height={13.5}
                 />
-                <p className="text-sm text-foreground">{duration} mins</p>
+                <p className="text-sm text-muted-foreground">{duration} mins</p>
             </div>
 
             <Link href={`/companions/${id}`} className="w-full">
-                <button className="btn-primary w-full justify-center" style={{ backgroundColor: color, color: '#050818' }}>
+                <button className="btn-primary w-full justify-center">
                     Launch Sentinel
                 </button>
             </Link>

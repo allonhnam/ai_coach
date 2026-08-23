@@ -137,13 +137,13 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                             />
                         </div>
                     </div>
-                    <p className="font-bold text-2xl">{name}</p>
+                    <p className="font-semibold text-xl mt-4">{name}</p>
                 </div>
 
                 <div className="user-section">
                     <div className="user-avatar">
-                        <Image src={userImage} alt={userName} width={130} height={130} className="rounded-lg" />
-                        <p className="font-bold text-2xl">
+                        <Image src={userImage} alt={userName} width={110} height={110} className="rounded-full" />
+                        <p className="font-semibold text-lg">
                             {userName}
                         </p>
                     </div>
@@ -153,9 +153,9 @@ const CompanionComponent = ({ companionId, subject, topic, name, userName, userI
                             {isMuted ? 'Turn on microphone' : 'Turn off microphone'}
                         </p>
                     </button>
-                    <button 
+                    <button
                         className={cn(
-                            'rounded-lg py-2 cursor-pointer transition-colors w-full text-white font-medium',
+                            'rounded-full py-2.5 cursor-pointer transition-colors w-full text-white font-semibold shadow-sm',
                             callStatus === CallStatus.ACTIVE ? 'bg-red-700 hover:bg-red-800' : 'bg-primary hover:bg-primary/90',
                             callStatus === CallStatus.CONNECTING && 'animate-pulse',
                             callStatus === CallStatus.FINISHED && 'bg-gray-500'

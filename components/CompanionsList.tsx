@@ -21,13 +21,13 @@ interface CompanionsListProps {
 const CompanionsList = ({ title, companions, classNames }: CompanionsListProps) => {
     return (
         <article className={cn('companion-list', classNames)}>
-            <h2 className="font-bold text-3xl text-foreground">{title}</h2>
+            <h2 className="font-semibold text-xl text-foreground">{title}</h2>
             <Table>
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="text-lg w-2/3">Lessons</TableHead>
-                        <TableHead className="text-lg">Subject</TableHead>
-                        <TableHead className="text-lg text-right">Duration</TableHead>
+                        <TableHead className="text-xs uppercase tracking-wide text-muted-foreground w-2/3">Lessons</TableHead>
+                        <TableHead className="text-xs uppercase tracking-wide text-muted-foreground">Subject</TableHead>
+                        <TableHead className="text-xs uppercase tracking-wide text-muted-foreground text-right">Duration</TableHead>
                         <TableHead className="text-right">Amount</TableHead>
                     </TableRow>
                 </TableHeader>
@@ -36,22 +36,22 @@ const CompanionsList = ({ title, companions, classNames }: CompanionsListProps) 
                         <TableRow key={id}>
                             <TableCell>
                                 <Link href={`/companions/${id}`}>
-                                    <div className="flex items-center gap-2">
-                                        <div className="size-[72px] flex items-center justify-center rounded-lg max-md:hidden"
+                                    <div className="flex items-center gap-3">
+                                        <div className="size-14 flex items-center justify-center rounded-lg max-md:hidden"
                                             style={{ backgroundColor: getSubjectColor(subject) }}
                                         >
                                             <Image
                                                 src={`/icons/${subject}.svg`}
                                                 alt={subject}
-                                                width={35}
-                                                height={35}
+                                                width={28}
+                                                height={28}
                                             />
                                         </div>
-                                        <div className="flex flex-col gap-2">
-                                            <p className="font-bold text-2xl">
+                                        <div className="flex flex-col gap-1">
+                                            <p className="font-semibold text-base text-foreground">
                                                 {name}
                                             </p>
-                                            <p className="text-lg">
+                                            <p className="text-sm text-muted-foreground">
                                                 {topic}
                                             </p>
                                         </div>
@@ -75,11 +75,11 @@ const CompanionsList = ({ title, companions, classNames }: CompanionsListProps) 
                             </TableCell>
                             <TableCell>
                                 <div className="flex items-center gap-2 w-full justify-end">
-                                    <p className="text-2xl">
+                                    <p className="text-sm font-medium text-foreground">
                                         {duration} {' '}
-                                        <span className="max-md:hidden">mins</span>
+                                        <span className="max-md:hidden text-muted-foreground font-normal">mins</span>
                                     </p>
-                                    <Image 
+                                    <Image
                                         src="/icons/clock.svg"
                                         alt="minutes"
                                         width={14}
